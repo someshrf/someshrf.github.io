@@ -60,7 +60,12 @@ p {
 }
 
 
-h1 {
+.contact{
+  height:2em;
+  width: 2em;
+  }
+
+  h1 {
   color:#7a2e40;
   margin:0 0 0.625em;
   padding-bottom:0.625em;
@@ -68,6 +73,7 @@ h1 {
   border-bottom:0.0625em solid #efece7;
 }
 
+/*
 h2 {
   color:#7a2e40;
   margin:1.25em 0 .625em;
@@ -76,6 +82,7 @@ h2 {
   border-bottom:0.0625em solid #efece7;
 }
 
+*/
 h3 {
   color:#7a2e40;
   margin:0.625em 0;
@@ -84,7 +91,17 @@ h3 {
   border-bottom:0.0625em solid #efece7;
 }
 
-ul {
+h5
+{ color:#CD516F;
+  margin:0.725em 0;
+  padding-bottom:0.625em;
+  font:bold 0.875em Arial, Helvetica, sans-serif;
+  text-align:center;
+}
+
+
+
+  ul {
   
   padding:0;
   margin:0 0 0 1.0625em;
@@ -105,33 +122,6 @@ ul {
   color:#424279;
   text-shadow: 0.0125em 0.0125em;
 }
-
-/*
-.fa {
-    padding: 1.25em;
-    font-size: 1.875em;
-    width: 3.125em;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 50%;
-}
-
-
-.fa:hover {
-    opacity: 0.7;
-}
-
-.fa-facebook {
-    background: #3B5998;
-    color: white;
-}
-
-.ul{
-  list-style-type:none;
-}
-
-background*/
-
 
  /*.back {
     position: relative;
@@ -169,4 +159,60 @@ background*/
     width: 100%;
   }
 
+ /*icons*/
 
+ .fa {
+    border-radius:50%;
+    padding: 0.5em;
+    font-size: 1.875em;
+    height:0.55em;
+    width: 0.55em;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Add a hover effect if you want */
+.fa:hover {
+    opacity: 0.7;
+}
+
+/* Set a specific color for each brand */
+
+/* Facebook */
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+/* Twitter */
+
+a{
+  margin:0.25em;
+}
+
+#center
+{ width:12.875em;
+  float:left;
+  margin-top:32em;
+  margin-left:5.5em; 
+  margin-right: 5em;
+}
+
+.size{
+    border-radius:50%;
+    padding: 0.5em;
+    font-size: 1.875em;
+    height:0.55em;
+    width: 0.55em;
+    text-align: center;
+    text-decoration: none;
+    margin-left:1em;
+}
+
+.white{
+  color:white;
+  font-size:1em;
+}
+
+
+https://stackoverflow.com/questions/36562597/change-the-icon-size-of-material-design-icon
