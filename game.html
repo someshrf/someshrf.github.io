@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>www.spintowin.com</title>
+
+    <script>
+        var count = 0;
+        
+        function write_message( $message ) {
+            document.getElementById('messages').innerHTML = $message;
+        }
+
+        function restart()
+          {  refreshCounts(count*(-1));
+             var pt= document.getElementById("p2").innerHTML;
+             pt.innerHTML= count;
+             write_message('');   
+          
+              var one = 0;
+              var two = 0;
+              var three = 0;
+
+              document.getElementById('first').innerHTML = one;
+              document.getElementById('second').innerHTML = two;
+              document.getElementById('third').innerHTML = three;
+          }
+
+
+        function refresh()
+        {
+            
+                
+                var one = Math.floor((Math.random()*9)+1);
+                var two = Math.floor((Math.random()*9)+1);
+                var three = Math.floor((Math.random()*9)+1);
+
+                document.getElementById('first').innerHTML = one;
+                document.getElementById('second').innerHTML = two;
+                document.getElementById('third').innerHTML = three;
+
+               
+                   if ( one == two && two == three && three == one  ) {
+                    refreshCounts(1);
+                    write_message( 'you won!' );
+                    var pt= document.getElementById("p2").innerHTML;
+                    pt.innerHTML=count; 
+
+                } 
+
+                else {
+                    refreshCounts(0);
+                    write_message( 'sorry, bad luck...' );
+                    var pt= document.getElementById("p2").innerHTML;
+                    pt.innerHTML=count;
+                }
+            
+        }
+
+        function refreshCounts( value ) {
+            count = count + value;
+            document.getElementById("p2").innerHTML = count;
+        }
+    </script>
+
+    <style>
+        body {
+            text-align: center;
+            background-color: #4D3D17;
+        }
+
+        p, a {
+            color: yellow;
+            font-weight: 12px;
+        }
+
+        .title {
+            font-size: 50px;
+            text-align: center;
+        }
+
+        #machine {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<p class="title">
+    spin to win
+</p>
+
+
+<div id="machine">
+    <svg width="550" height="250" viewBox="0 0 1600 500">
+
+    <rect x="0" y="10" width="500" height="500" fill="black" stroke="white" stroke-width="10">
+    </rect>
+
+    <rect x="550" y="10" width="500" height="500" fill="black" stroke="white" stroke-width="10">
+    </rect>
+
+    <rect x="1100" y="10" width="500" height="500" fill="black" stroke="white" stroke-width="10">
+    </rect>
+
+    <text x="100" y="415" font-family="courier" font-size="500" fill="white" id="first">
+    0
+    </text>
+
+    <text x="650" y="415" font-family="courier" font-size="500" fill="white" id ="second">
+    0
+    </text>
+
+    <text x="1200" y="415" font-family="courier" font-size="500" fill="white" id="third">
+    0
+    </text>
+    </svg>
+</div>
+
+
+<p>
+    <input type="button" value="Click Here To Spin" onClick="refresh()">
+</p>
+
+<!--
+<p>
+    <a href="javascript:refreshCounts(+1)">Add Credit</a>
+</p>
+-->
+
+<p id="p2">0</p>
+
+<p id="messages"></p>
+
+
+
+</body>
+</html>

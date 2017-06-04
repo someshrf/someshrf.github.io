@@ -1,0 +1,218 @@
+
+
+body {
+    font:normal 1em/1.6em Arial, Helvetica, sans-serif;
+  color:#2a3845;
+  margin:0;
+  padding:0;
+  
+  
+}
+
+p {
+  margin:0;
+  padding:0;
+}
+
+.fun{
+  opacity:0.5;
+  }
+
+  #wrapper {
+  margin:0 auto;
+  width:39.5em;
+  border-left:0.0625em solid #151418;
+  border-right:0.0625em solid #151418;
+}
+
+#header {
+  margin:0 0.0625em;
+}
+
+
+#main-content {
+  margin:0 auto;
+}
+
+#main-image {
+  text-align:center;
+}
+
+#left-column {
+  width:22em;
+  padding:0 1.875em 1.875em;
+  float:left;
+  margin-left: 3em;
+ }
+
+#right-column {
+  width:16.875em;
+  float:right;
+  margin-top: 1em;   
+ }
+
+.sidebar {
+  color:#ffffff;
+  width:13.625em;
+  margin:0 auto;
+  padding:0.625em 1.5625em;
+  background:url('http://img404.imageshack.us/img404/3092/shadowh.jpg') no-repeat top;
+}
+
+
+.contact{
+  height:2em;
+  width: 2em;
+  }
+
+  h1 {
+  color:#7a2e40;
+  margin:0 0 0.625em;
+  padding-bottom:0.625em;
+  font:normal 1.0625em Georgia, serif;
+  border-bottom:0.0625em solid #efece7;
+}
+
+/*
+h2 {
+  color:#7a2e40;
+  margin:1.25em 0 .625em;
+  padding-bottom:0.625em;
+  font:normal 1.0625em Georgia, serif;
+  border-bottom:0.0625em solid #efece7;
+}
+
+*/
+h3 {
+  color:#7a2e40;
+  margin:0.625em 0;
+  padding-bottom:0.625em;
+  font:bold 0.875em Arial, Helvetica, sans-serif;
+  border-bottom:0.0625em solid #efece7;
+}
+
+h5
+{ color:#CD516F;
+  margin:0.725em 0;
+  padding-bottom:0.625em;
+  font:bold 0.875em Arial, Helvetica, sans-serif;
+  text-align:center;
+}
+
+
+
+  ul {
+  
+  padding:0;
+  margin:0 0 0 1.0625em;
+  list-style:square url('http://img525.imageshack.us/img525/1890/bulletr.gif');
+}
+
+.box {
+  border:1.0625em;
+  padding:0.9375em;
+  color:#ffffff;
+  filter:alpha(opacity=50); opacity:1;
+}
+
+#logo {
+  margin-top:1.25em;
+  margin-bottom:1.25em;
+  font:normal 1.5em Georgia, serif;
+  color:#424279;
+  text-shadow: 0.0125em 0.0125em;
+}
+
+ /*.back {
+    position: relative;
+    background: #141518;
+    overflow: hidden;
+}
+*/
+.back/*:before*/ {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.8;
+    background-image: url('http://wallpapercave.com/wp/IXh97Bo.jpg ');
+    background-repeat: no-repeat center center fixed;
+    background-position: 50% 50%;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+
+.invisible {
+    display: block;
+    left: 0;
+    top: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+
+ /*icons*/
+
+ .fa {
+    border-radius:50%;
+    padding: 0.5em;
+    font-size: 1.875em;
+    height:0.55em;
+    width: 0.55em;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Add a hover effect if you want */
+.fa:hover {
+    opacity: 0.7;
+}
+
+/* Set a specific color for each brand */
+
+/* Facebook */
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+/* Twitter */
+
+a{
+  margin:0.25em;
+}
+
+#center
+{ width:12.875em;
+  float:left;
+  margin-top:32em;
+  margin-left:5.5em; 
+  margin-right: 5em;
+}
+
+.size{
+    border-radius:50%;
+    padding: 0.5em;
+    font-size: 1.875em;
+    height:0.55em;
+    width: 0.55em;
+    text-align: center;
+    text-decoration: none;
+    margin-left:1em;
+}
+
+.white{
+  color:white;
+  font-size:1em;
+}
+
+
+https://stackoverflow.com/questions/36562597/change-the-icon-size-of-material-design-icon
