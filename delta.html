@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+  <html>
+   <div class="back">
+     
+ <style>
+    .back/*:before*/ {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.8;
+    background-image: url('http://www.pptback.com/uploads/education-blackboard-backgrounds-powerpoint.jpg');
+    background-repeat: no-repeat center center fixed;
+    background-position: 100% 100%;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+h1, h4 {
+  text-align:center;
+  margin: 0.4em 1.25em;
+  color: white;
+  line-height: 2.5em;
+  min-width: 25em;
+}
+
+/*
+#div1{
+  margin-bottom:0;
+  height:100%;
+  width:100%;
+  margin-left:2em; }
+*/
+
+#none{}
+
+
+ #box{
+  position:absolute;
+  background-color:#91F7BF;
+  margin-bottom:5em;
+  margin-left:16em;
+  width:14em;
+  height:15em;
+  overflow-y: scroll;
+  overflow-x:hidden;
+}
+
+#back1{
+  position:absolute;
+  background-color:#F7EF53;
+  margin-bottom:5em;
+  margin-left:33em;
+  width:14em;
+  height:15em;
+  overflow-y: scroll;
+  overflow-x:hidden;
+}
+
+#back2{
+  position:absolute;
+  background-color:#ffffff;
+  margin-bottom:5em;
+  margin-left:50em;
+  width:14em;
+  height:15em;
+  overflow-y:scroll;  
+  overflow-x:hidden;
+}
+
+#but{
+  position:absolute;
+  margin-top:25em;
+  margin-left:40em;
+}
+
+ </style>
+
+        <h1>Sticky Notes</h1>
+               <!--   <h4>Click to edit, Enter to create a new one, Backspace to remove </h4>
+                      <ul contenteditable="true">
+                           <span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span>
+                    
+                          <li>
+                          </li>
+                      </ul>  
+-->      
+
+
+<body onload="start()">
+ <div id="none">
+  <p id="box" contenteditable="true"></p>
+  
+  <p id="back1" contenteditable="true"></p>
+  
+  <p id="back2" contenteditable="true"></p>
+
+ <button type="button" id="but" onclick="save()">save message</button> 
+
+</div>
+
+<script>
+function save()
+{var text1 = document.getElementById("box").value;
+ localStorage.setItem("bbox",text1);
+ 
+ var text2 = document.getElementById("back1").value;
+  localStorage.setItem("bback1",text2);
+ 
+ var text3 = document.getElementById("back2").value;
+  localStorage.setItem("babck2",text3); 
+
+}
+
+function start(){
+
+   var text1 = localStorage.getItem("bbox");
+
+   if (text1 != "undefined" || text1 != "null") {
+    document.getElementById('box').innerHTML = text1;
+  } else {
+    document.getElementById('box').innerHTML = "null";
+  }
+
+var text2 = localStorage.getItem("bback1");
+
+ if (text2 != "undefined" || text2 != "null") {
+    document.getElementById('back1').innerHTML = text2;
+  } else {
+    document.getElementById('back1').innerHTML = "null";
+  }
+
+var text3 = localStorage.getItem("bback2");
+
+ if (text3 != "undefined" || text3 != "null") {
+    document.getElementById('back2').innerHTML = "null";
+  } else {
+    document.getElementById('back2').innerHTML = "null";
+  }
+
+</script>
+
+</body>
+</div> 
+</html>
+ 
+<!--
+https://www.w3schools.com/html/html5_draganddrop.asp
+https://stackoverflow.com/questions/7892446/how-to-save-to-localstorage-from-textarea
+http://theburningmonk.com/2011/01/creating-a-sticky-note-app-with-html5-css3-and-javascript/
+https://www.webdesignerdepot.com/2013/04/how-to-use-local-storage-for-javascript/
+-->
