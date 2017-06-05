@@ -3,7 +3,7 @@
    <div class="back">
      
  <style>
-    .back/*:before*/ {
+   .back/*:before*/ {
     content: '';
     display: block;
     position: absolute;
@@ -28,21 +28,10 @@
 h1, h4 {
   text-align:center;
   margin: 0.4em 1.25em;
-  color: white;
+  color: #FAE7F7;
   line-height: 2.5em;
   min-width: 25em;
 }
-
-/*
-#div1{
-  margin-bottom:0;
-  height:100%;
-  width:100%;
-  margin-left:2em; }
-*/
-
-#none{}
-
 
  #box{
   position:absolute;
@@ -59,7 +48,7 @@ h1, h4 {
   position:absolute;
   background-color:#F7EF53;
   margin-bottom:5em;
-  margin-left:33em;
+  margin-left:45em;
   width:14em;
   height:15em;
   overflow-y: scroll;
@@ -70,7 +59,7 @@ h1, h4 {
   position:absolute;
   background-color:#ffffff;
   margin-bottom:5em;
-  margin-left:50em;
+  margin-left:75em;
   width:14em;
   height:15em;
   overflow-y:scroll;  
@@ -82,80 +71,91 @@ h1, h4 {
   margin-top:25em;
   margin-left:40em;
 }
-
+ 
+#sub{
+color:white;
+position:absolute;
+margin-left:13em;
+margin-top:13em;
+word-spacing:16.3em;
+font-size:1.1em;
+}
+ 
+#titl{
+  position:absolute;
+  margin-top:21em;
+  text-align:center;
+  margin-left:15em;
+  font-size: 1.3em;
+  color:#09A6EA;
+  
+} 
+ 
  </style>
+ 
 
         <h1>Sticky Notes</h1>
-               <!--   <h4>Click to edit, Enter to create a new one, Backspace to remove </h4>
-                      <ul contenteditable="true">
-                           <span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span>
-                    
-                          <li>
-                          </li>
-                      </ul>  
--->      
+              
 
 
 <body onload="start()">
- <div id="none">
-  <p id="box" contenteditable="true"></p>
+ <div>
+  <textarea id="box" contenteditable="true"></textarea>
   
-  <p id="back1" contenteditable="true"></p>
-  
-  <p id="back2" contenteditable="true"></p>
+  <textarea id="back1" contenteditable="true"></textarea>
+
+  <textarea id="back2" contenteditable="true"></textarea>
+ 
+  <p id="sub"> crucial important normal</p>
 
  <button type="button" id="but" onclick="save()">save message</button> 
 
-</div>
+ <p id="titl">Don't forget to save the message after Typing, Deleting or Editing</p>
+
+ </div>
 
 <script>
 function save()
 {var text1 = document.getElementById("box").value;
- localStorage.setItem("bbox",text1);
+ localStorage.setItem("box",text1);
  
  var text2 = document.getElementById("back1").value;
-  localStorage.setItem("bback1",text2);
+  localStorage.setItem("back1",text2);
  
  var text3 = document.getElementById("back2").value;
-  localStorage.setItem("babck2",text3); 
+  localStorage.setItem("back2",text3); 
 
 }
 
-function start(){
+function start()
 
-   var text1 = localStorage.getItem("bbox");
+{  var text1 = localStorage.getItem("box");
 
-   if (text1 != "undefined" || text1 != "null") {
-    document.getElementById('box').innerHTML = text1;
+   if (text1 != "undefined" && text1 != "null") {
+    document.getElementById("box").value = text1;
   } else {
-    document.getElementById('box').innerHTML = "null";
+    document.getElementById("box").value= null;
   }
 
-var text2 = localStorage.getItem("bback1");
+var text2 = localStorage.getItem("back1");
 
- if (text2 != "undefined" || text2 != "null") {
-    document.getElementById('back1').innerHTML = text2;
+ if (text2 != "undefined" && text2 != "null") {
+    document.getElementById("back1").value= text2;
   } else {
-    document.getElementById('back1').innerHTML = "null";
+    document.getElementById("back1").value = null;
   }
 
-var text3 = localStorage.getItem("bback2");
+var text3 = localStorage.getItem("back2");
 
- if (text3 != "undefined" || text3 != "null") {
-    document.getElementById('back2').innerHTML = "null";
+ if (text3 != "undefined" && text3 != "null") {
+    document.getElementById("back2").value = text3;
   } else {
-    document.getElementById('back2').innerHTML = "null";
+    document.getElementById("back2").value = null;
   }
+}
 
 </script>
-
 </body>
 </div> 
 </html>
  
-<!--
-https://www.w3schools.com/html/html5_draganddrop.asp
-https://stackoverflow.com/questions/7892446/how-to-save-to-localstorage-from-textarea
-http://theburningmonk.com/2011/01/creating-a-sticky-note-app-with-html5-css3-and-javascript/
-https://www.webdesignerdepot.com/2013/04/how-to-use-local-storage-for-javascript/
--->
