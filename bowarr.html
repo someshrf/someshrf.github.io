@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <meta charset="utf-8"/>
+     <title> Gamedev</title>
+   <style >
+   	* {padding:0;
+   	  margin:0;
+   	 }
+ 	 canvas{background:#eee; display:block; margin: 0 auto;}
+   
+   </style>
+  
+  </head>
+
+  <body>
+  	
+  <canvas id="myCanvas" width="1180" height="620">
+  	
+  	<div style="display:none;">
+       <img id="source" src="https://s-media-cache-ak0.pinimg.com/736x/05/79/80/0579801f9393860253b8d53ebaa9e86d.jpg"
+       width="300" height="900">
+       <img id="source1" src="https://static.tumblr.com/292c9dbff25d0549829de7e61b8e89f4/wxgvsjq/FFUnumpa8/tumblr_static__640_v2.jpg"
+       width="200" height="900">
+     
+      <!-- <embed src="http://www.pacdv.com/sounds/ambience_sounds/fire-1.mp3" autostart="true" loop="true" hidden="true"> -->
+    </div>
+    </canvas>
+  <script>
+
+     var canvas=document.getElementById("myCanvas");
+     var ctx= canvas.getContext("2d");
+   
+    var x=canvas.width*3/4;
+    var y=canvas.height/2;
+   
+    var bx=canvas.width/2;
+    var by=canvas.height/2;
+    var bdy=3;
+
+    var dx=0;
+    var dy=-2;
+    var upPress=false;
+    var downPress=false;
+
+    var score=0;
+    var lives=5;
+
+   function draw() {
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    
+    drawBow(); 
+    drawArrow();
+    drawMap();
+    drawScore();
+    drawLives();
+    mapHit();
+    
+    drawBlock();
+
+    x+=dx;
+    y+=dy;
+    
+    by+=bdy;
+
+    if(y+dy< 150 || y+dy>canvas.height-150)
+    	{dy=-dy;}
+
+     if(upPress && arrowY > 80){
+      	arrowY-=2.5;}
+     
+     else if(downPress && arrowY < canvas.height-180){
+        arrowY+=2.5;}
+
+      
+      if(by+bdy > canvas.height-60 || by+bdy < 60){
+        bdy=-bdy;
+      }
+      
+       /* if(arrowX==canvas.width)
+         {if(hit1)
+         	{score+=50;
+         	 hit1=0;
+         	}
+
+          if(hit2)
+         	{score+=30;
+         	 hit2=0;
+         	}
+
+           if(hit3)
+         	{score+=20;
+         	 hit3=0;
+         	}
+ 
+          lives--;
+          flag=0;
+          arrowX=90;         
+          if(!lives)
+            {alert("Game Over. Score:"+ score);
+             score=0;
+             document.location.reload();
+            }
+         } */
+    //  if(arrowX>x)
+      // {mapHit();} 
+      
+}
+
+     function drawMap(){
+
+      ctx.beginPath();
+      ctx.arc(x,y,50,0,Math.PI*2);
+      ctx.fillStyle = "green";
+      ctx.fill();
+      ctx.closePath();
+
+      ctx.beginPath();
+      ctx.arc(x,y,30,0,Math.PI*2);
+      ctx.fillStyle = "blue";
+      ctx.fill();
+      ctx.closePath();
+      
+      ctx.beginPath();
+      ctx.arc(x,y,15,0,Math.PI*2);
+      ctx.fillStyle = "red";
+      ctx.fill();
+      ctx.closePath();
+      
+      }
+
+
+     function drawBlock(){
+            ctx.beginPath();
+            ctx.rect(bx,by,40,40);
+            ctx.fillStyle="#6C1A09";
+            ctx.fill();
+            ctx.closePath();
+ 
+      }
+   
+    document.addEventListener("keydown",keyDownHandler,false);
+    document.addEventListener("keyup",keyUpHandler,false);
+    
+    var arrowY=canvas.height/2;
+    var spPress=false;
+    var flag=0;
+
+    function keyDownHandler(e) {
+
+     	if(e.keyCode==38||e.keyCode==87) {
+     		upPress=true;
+     	}
+        else if(e.keyCode==40||e.keyCode==83) {
+        	 downPress=true;
+        }
+     
+        if(e.keyCode==32){
+        	spPress=true;
+            flag=1;
+            audio = new Audio("http://www.pacdv.com/sounds/interface_sound_effects/sound12.mp3");
+            audio.play();
+
+        }
+
+     }
+
+  function keyUpHandler(e) {
+
+     	if(e.keyCode==38||e.keyCode==87) {
+     		upPress=false;
+     	}
+        else if(e.keyCode==40||e.keyCode==83) {
+        	 downPress=false;
+        }
+
+        if(e.keyCode==32){
+        	spPress=false;
+        }
+     }
+
+    function drawBow() {
+   
+      var image=document.getElementById("source");
+      ctx.drawImage(image,80,arrowY,70,100);
+     }
+
+     var arrowX=90;
+     
+     function drawArrow() {
+       
+      if(flag)
+       {var image1=document.getElementById("source1");
+        ctx.drawImage(image1,arrowX,arrowY+39,35,20);
+        arrowX+=5;
+         
+         
+       } 
+     }
+
+    function drawScore(){
+    	ctx.font ="16px Arial";
+    	ctx.fillStyle ="#0095DD";
+    	ctx.fillText("Score:"+score,8,20);
+    }
+    
+    function drawLives() {
+    	ctx.font="16px Arial";
+    	ctx.fillStyle="#0095DD";
+    	ctx.fillText("Lives:"+lives,canvas.width-65,20);
+    }    
+   
+    var hit1=0;
+    var hit2=0;
+    var hit3=0;
+
+    function mapHit() {
+
+     /* if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) <= 50 )
+     	{ 
+     	  if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) <= 25)
+     	  	{if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) <= 15)
+     	  		{hit1=1;}
+     	  	 else{hit2=1;}
+     	    }
+     	   else{hit3=1;} 
+     	}
+      else
+        {score+=0;}
+    */
+      
+      /* if(arrowX>bx && arrowX<(bx+40) && arrowY>by && arrowY<(by+40))
+       { arrowX=90;
+         drawArrow();
+         flag=0;
+         lives--;
+         if(!lives)
+          {alert("game over. your score:"+score);
+           document.location.reload();
+          }
+       }
+
+      else{
+
+       if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) <= 15)
+        
+       {score+=50;
+        //arrowX+=0;
+        arrowX=90;
+        drawArrow();
+        flag=0;
+        lives--;
+        if(!lives)
+          {alert("game over. your score:"+score);
+           document.location.reload();
+          }
+       }
+
+     else if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) <= 25 && Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) >15)
+        
+       {score+=30;
+        arrowX=90;
+        drawArrow();
+        flag=0;
+        lives--;
+        if(!lives)
+          {alert("game over. your score:"+score);
+           document.location.reload();
+          }
+       }   
+      
+     else if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) <= 50 && Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) >25) 
+       
+       {score+=20;
+        arrowX=90;
+        drawArrow();
+        flag=0;
+        lives--;
+        if(!lives)
+          {alert("game over. your score:"+score);
+           document.location.reload();
+          }
+       }
+
+        
+
+      else if(arrowX==canvas.width)
+       {arrowX=90;
+        drawArrow();
+        flag=0;
+        lives--;
+        if(!lives)
+          {alert("game over. your score:"+score);
+           document.location.reload();
+          }
+       } 
+    }
+*/
+ 
+if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39+10-y)*(arrowY+39+10-y)) <= 50)
+  {hit3+=1;}
+if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39+10-y)*(arrowY+39+10-y)) <= 30)
+  {hit2+=1;}
+if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39+10-y)*(arrowY+39+10-y)) <= 15)
+  {hit1+=1;}
+
+if(arrowX==canvas.width)
+       { if(hit3>0 && hit2>0 && hit1>0)
+          {score+=50;}
+         else if(hit3>0 && hit2>0 && hit1==0)
+          {score+=30;}
+         else if(hit3>0 && hit2==0 && hit1==0)
+          {score+=20;}
+
+         hit1=0;
+         hit2=0;
+         hit3=0;
+
+         arrowX=90;
+         drawArrow();
+         flag=0;
+         lives--;
+         if(!lives)
+          {alert("game over. your score:"+score);
+           document.location.reload();
+          }
+       } 
+
+}
+
+   myAudio = new Audio('http://www.pacdv.com/sounds/ambience_sounds/fire-1.mp3'); 
+   myAudio.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+    }, false);
+
+   myAudio.play();
+
+ setInterval(draw,12);
+  
+  </script>
+
+  </body>
+    
+</html>
