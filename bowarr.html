@@ -5,32 +5,63 @@
      <title> Gamedev</title>
    <style >
    	* {padding:0;
-   	  margin:0;
-   	 }
+       margin:0;
+   	  }
  	 canvas{background:#eee; display:block; margin: 0 auto;}
    
+    #bottom{
+    position:absolute;
+    bottom:12px;
+    margin-left:550px; 
+    }
+
+   #bt{
+
+   width:60px;
+   height:25px;
+   }
+
+
    </style>
   
   </head>
 
   <body>
   	
-  <canvas id="myCanvas" width="1180" height="620">
-  	
-  	<div style="display:none;">
-       <img id="source" src="https://s-media-cache-ak0.pinimg.com/736x/05/79/80/0579801f9393860253b8d53ebaa9e86d.jpg"
-       width="300" height="900">
-       <img id="source1" src="https://static.tumblr.com/292c9dbff25d0549829de7e61b8e89f4/wxgvsjq/FFUnumpa8/tumblr_static__640_v2.jpg"
-       width="200" height="900">
-     
-      <!-- <embed src="http://www.pacdv.com/sounds/ambience_sounds/fire-1.mp3" autostart="true" loop="true" hidden="true"> -->
+    <div id="bottom">
+       
+       <button type="button" id="bt" onclick="newgame()">restart</button> 
+       <button type="button" id="bt" onclick="Pause()">pause</button>
+       <button type="button" id="bt" onclick="Resume()">resume</button> 
+
     </div>
-    </canvas>
+
+
+
+
+  <canvas id="myCanvas" width="1180" height="620">
+ 
+    	<div style="display:none;">
+         <img id="source" src="https://s-media-cache-ak0.pinimg.com/736x/05/79/80/0579801f9393860253b8d53ebaa9e86d.jpg"
+         width="300" height="900"/>
+         <img id="source1" src="https://static.tumblr.com/292c9dbff25d0549829de7e61b8e89f4/wxgvsjq/FFUnumpa8/tumblr_static__640_v2.jpg"
+         width="200" height="900"/>
+      </div>
+   </canvas>
+   
   <script>
 
-     var canvas=document.getElementById("myCanvas");
-     var ctx= canvas.getContext("2d");
+    var canvas=document.getElementById("myCanvas");
+    var ctx= canvas.getContext("2d");
    
+   /* var canvas1=document.getElementById("canvas1");
+    var ctx1= canvas.getContext("2d");
+    
+    var image=document.getElementById("source");
+    ctx1.globalAlpha=0.6;
+    ctx1.drawImage(image,0,0,canvas.width,canvas.height);
+    ctx1.globalAlpha=1;
+    */   
     var x=canvas.width*3/4;
     var y=canvas.height/2;
    
@@ -46,10 +77,23 @@
     var score=0;
     var lives=5;
 
-   function draw() {
+    var arrowX=90;
+    var arrowY=canvas.height/2;
+
+   var pause=0;
+
+   function Pause(){
+    pause=1;
+   }
+
+   function Resume(){
+    pause=0;
+  }
+
+  function draw() {
 
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    
+        
     drawBow(); 
     drawArrow();
     drawMap();
@@ -59,12 +103,13 @@
     
     drawBlock();
 
-    x+=dx;
-    y+=dy;
+   if(!pause){
+     x+=dx;
+     y+=dy;
     
-    by+=bdy;
+     by+=bdy;
 
-    if(y+dy< 150 || y+dy>canvas.height-150)
+     if(y+dy< 150 || y+dy>canvas.height-150)
     	{dy=-dy;}
 
      if(upPress && arrowY > 80){
@@ -77,55 +122,41 @@
       if(by+bdy > canvas.height-60 || by+bdy < 60){
         bdy=-bdy;
       }
-      
-       /* if(arrowX==canvas.width)
-         {if(hit1)
-         	{score+=50;
-         	 hit1=0;
-         	}
-
-          if(hit2)
-         	{score+=30;
-         	 hit2=0;
-         	}
-
-           if(hit3)
-         	{score+=20;
-         	 hit3=0;
-         	}
+   }
  
-          lives--;
-          flag=0;
-          arrowX=90;         
-          if(!lives)
-            {alert("Game Over. Score:"+ score);
-             score=0;
-             document.location.reload();
-            }
-         } */
-    //  if(arrowX>x)
-      // {mapHit();} 
-      
+ // else if(pause)
+ // {;}
+    requestAnimationFrame(draw);
+   // update();
+  
 }
 
-     function drawMap(){
+    draw();
+
+   function drawMap(){
 
       ctx.beginPath();
+      ctx.globalAlpha=0.4;
       ctx.arc(x,y,50,0,Math.PI*2);
       ctx.fillStyle = "green";
       ctx.fill();
+      ctx.globalAlpha=1;
       ctx.closePath();
 
       ctx.beginPath();
+      ctx.globalAlpha=0.4;
       ctx.arc(x,y,30,0,Math.PI*2);
       ctx.fillStyle = "blue";
       ctx.fill();
+      ctx.globalAlpha=1;
       ctx.closePath();
       
       ctx.beginPath();
+      ctx.globalAlpha=0.4;
       ctx.arc(x,y,15,0,Math.PI*2);
       ctx.fillStyle = "red";
       ctx.fill();
+      ctx.globalAlpha=1;
       ctx.closePath();
       
       }
@@ -143,7 +174,6 @@
     document.addEventListener("keydown",keyDownHandler,false);
     document.addEventListener("keyup",keyUpHandler,false);
     
-    var arrowY=canvas.height/2;
     var spPress=false;
     var flag=0;
 
@@ -186,16 +216,14 @@
       ctx.drawImage(image,80,arrowY,70,100);
      }
 
-     var arrowX=90;
      
      function drawArrow() {
        
       if(flag)
        {var image1=document.getElementById("source1");
         ctx.drawImage(image1,arrowX,arrowY+39,35,20);
-        arrowX+=5;
-         
-         
+         if(!pause)
+          {arrowX+=5;}
        } 
      }
 
@@ -217,20 +245,7 @@
 
     function mapHit() {
 
-     /* if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) <= 50 )
-     	{ 
-     	  if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) <= 25)
-     	  	{if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) <= 15)
-     	  		{hit1=1;}
-     	  	 else{hit2=1;}
-     	    }
-     	   else{hit3=1;} 
-     	}
-      else
-        {score+=0;}
-    */
-      
-      /* if(arrowX>bx && arrowX<(bx+40) && arrowY>by && arrowY<(by+40))
+     if(arrowX>bx && arrowX<(bx+40) && arrowY>by && arrowY<(by+40))
        { arrowX=90;
          drawArrow();
          flag=0;
@@ -241,63 +256,7 @@
           }
        }
 
-      else{
-
-       if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) <= 15)
-        
-       {score+=50;
-        //arrowX+=0;
-        arrowX=90;
-        drawArrow();
-        flag=0;
-        lives--;
-        if(!lives)
-          {alert("game over. your score:"+score);
-           document.location.reload();
-          }
-       }
-
-     else if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) <= 25 && Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) >15)
-        
-       {score+=30;
-        arrowX=90;
-        drawArrow();
-        flag=0;
-        lives--;
-        if(!lives)
-          {alert("game over. your score:"+score);
-           document.location.reload();
-          }
-       }   
-      
-     else if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) <= 50 && Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39-y)*(arrowY+39-y)) >25) 
-       
-       {score+=20;
-        arrowX=90;
-        drawArrow();
-        flag=0;
-        lives--;
-        if(!lives)
-          {alert("game over. your score:"+score);
-           document.location.reload();
-          }
-       }
-
-        
-
-      else if(arrowX==canvas.width)
-       {arrowX=90;
-        drawArrow();
-        flag=0;
-        lives--;
-        if(!lives)
-          {alert("game over. your score:"+score);
-           document.location.reload();
-          }
-       } 
-    }
-*/
- 
+else { 
 if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39+10-y)*(arrowY+39+10-y)) <= 50)
   {hit3+=1;}
 if(Math.sqrt((arrowX+35-x)*(arrowX+35-x) + (arrowY+39+10-y)*(arrowY+39+10-y)) <= 30)
@@ -326,9 +285,15 @@ if(arrowX==canvas.width)
            document.location.reload();
           }
        } 
-
+  }
 }
 
+function newgame() {
+  alert("scores won't be saved");
+  document.location.reload();
+}
+
+ 
    myAudio = new Audio('http://www.pacdv.com/sounds/ambience_sounds/fire-1.mp3'); 
    myAudio.addEventListener('ended', function() {
     this.currentTime = 0;
@@ -337,10 +302,10 @@ if(arrowX==canvas.width)
 
    myAudio.play();
 
- setInterval(draw,12);
+ 
+  //setInterval(draw,12);
   
   </script>
 
   </body>
-    
 </html>
