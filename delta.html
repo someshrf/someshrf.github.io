@@ -1,161 +1,103 @@
 <!DOCTYPE html>
-  <html>
-   <div class="back">
-     
+<html>
+ <head>
+   <title>notes</title>
+ </head>
+
  <style>
-   .back/*:before*/ {
-    content: '';
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    opacity: 0.8;
-    background-image: url('http://www.pptback.com/uploads/education-blackboard-backgrounds-powerpoint.jpg');
-    background-repeat: no-repeat center center fixed;
-    background-position: 100% 100%;
-    -ms-background-size: cover;
-    -o-background-size: cover;
-    -moz-background-size: cover;
-    -webkit-background-size: cover;
-    background-size: cover;
-}
-
-@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
-
-h1, h4 {
-  text-align:center;
-  margin: 0.4em 1.25em;
-  color: #FAE7F7;
-  line-height: 2.5em;
-  min-width: 25em;
-}
-
- #box{
-  position:absolute;
-  background-color:#91F7BF;
-  margin-bottom:5em;
-  margin-left:16em;
-  width:14em;
-  height:15em;
-  overflow-y: scroll;
-  overflow-x:hidden;
-}
-
-#back1{
-  position:absolute;
-  background-color:#F7EF53;
-  margin-bottom:5em;
-  margin-left:45em;
-  width:14em;
-  height:15em;
-  overflow-y: scroll;
-  overflow-x:hidden;
-}
-
-#back2{
-  position:absolute;
-  background-color:#ffffff;
-  margin-bottom:5em;
-  margin-left:75em;
-  width:14em;
-  height:15em;
-  overflow-y:scroll;  
-  overflow-x:hidden;
-}
-
-#but{
-  position:absolute;
-  margin-top:25em;
-  margin-left:40em;
-}
- 
-#sub{
-color:white;
-position:absolute;
-margin-left:13em;
-margin-top:13em;
-word-spacing:16.3em;
-font-size:1.1em;
-}
- 
-#titl{
-  position:absolute;
-  margin-top:21em;
-  text-align:center;
-  margin-left:15em;
-  font-size: 1.3em;
-  color:#09A6EA;
-  
-} 
- 
+ 	
  </style>
+
+ <body.onload="loading()">
+ <textarea id="tt" placeholder="enter message" rows="2" cols="80"></textarea>
+ <textarea id="nn" placeholder="1 for high 2 for med 3 for low" rows="2" cols="9"></textarea>
+ <button type="button" onclick="addnote()">add note</button>
+ <textarea id="dd" placeholder="enter no of node to delete" rows="2" cols="9"></textarea>
+ <button type="button" onclick="deletenote()">delete note</button>
  
-
-        <h1>Sticky Notes</h1>
-              
-
-
-<body onload="start()">
- <div>
-  <textarea id="box" contenteditable="true"></textarea>
-  
-  <textarea id="back1" contenteditable="true"></textarea>
-
-  <textarea id="back2" contenteditable="true"></textarea>
- 
-  <p id="sub"> crucial important normal</p>
-
- <button type="button" id="but" onclick="save()">save message</button> 
-
- <p id="titl">Don't forget to save the message after Typing, Deleting or Editing</p>
-
+ <div id="container">
+ 	
  </div>
 
-<script>
-function save()
-{var text1 = document.getElementById("box").value;
- localStorage.setItem("box",text1);
- 
- var text2 = document.getElementById("back1").value;
-  localStorage.setItem("back1",text2);
- 
- var text3 = document.getElementById("back2").value;
-  localStorage.setItem("back2",text3); 
+  <script>
+
+var nos=0;
+
+function deletenote(){
+
+var id=document.getElementById("dd").value;
+document.getElementById("dd").value="";
+var para = document.getElementById("note"+id);
+if(para == null)
+ {alert("The note does not exist");}
+para.parentNode.removeChild(para);
+localStorage.removeItem("prio"+id);
 
 }
 
-function start()
+function addnote() {
 
-{  var text1 = localStorage.getItem("box");
+ var txt=document.getElementById("tt").value; 
+ document.getElementById("tt").value=""; 
+ var priority=document.getElementById("nn").value;
+ document.getElementById("nn").value="";
+ nos=nos+1;
+ 
+ 
+ var par = document.createElement("p");
+ par.contentEditable="true";
+ par.style.height="40px";
+ 
+  if(priority === "1")
+    par.style.backgroundColor = "red";
+ else if(priority === "2")
+	par.style.backgroundColor = "yellow";
+ else if(priority === "3")
+	par.style.backgroundColor = "green";
+			
+ par.setAttribute("id","note"+nos);
+           
+ // localStorage.setItem("no"+nos,nos);
+ localStorage.setItem("number",nos);
+      
+ var node = document.createTextNode(txt);
+ par.appendChild(node);
+ 
+ var element = document.getElementById("container");
+ element.appendChild(par);
+ 
+localStorage.setItem("note"+nos,txt);
+localStorage.setItem("prio"+nos,priority);
+}	
 
-   if (text1 != "undefined" && text1 != "null") {
-    document.getElementById("box").value = text1;
-  } else {
-    document.getElementById("box").value= null;
-  }
+ function loading(){
+  var numb=localStorage.getItem("number");
+  nos=parseInt(numb);
+  var i;
+  for(i=1;i<=nos;i++)
+    {var txt=JSON.parse(localStorage.getItem("note"+i));
+     var prio=localStorage.getItem("prio"+i);
 
-var text2 = localStorage.getItem("back1");
+     var par = document.createElement("p");
+     par.contentEditable="true";
+     par.style.height="40px";
 
- if (text2 != "undefined" && text2 != "null") {
-    document.getElementById("back1").value= text2;
-  } else {
-    document.getElementById("back1").value = null;
-  }
-
-var text3 = localStorage.getItem("back2");
-
- if (text3 != "undefined" && text3 != "null") {
-    document.getElementById("back2").value = text3;
-  } else {
-    document.getElementById("back2").value = null;
-  }
-}
-
-</script>
-</body>
-</div> 
+ if(prio === "1")
+      par.style.backgroundColor = "red";
+ else if(prio === "2")
+      par.style.backgroundColor = "yellow";
+ else if(prio === "3")
+      par.style.backgroundColor = "green";
+ 
+  var node = document.createTextNode(txt);
+  par.appendChild(node);
+  par.setAttribute("id","note"+i);
+  var element = document.getElementById("container");
+  element.appendChild(par);
+      
+   }
+ }  
+  </script>
+ </body>
 </html>
- 
+
