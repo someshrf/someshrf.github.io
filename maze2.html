@@ -52,7 +52,7 @@
 
  <body>
 
-  <canvas id="myCanvas" height="600" width="1000">
+  <canvas id="myCanvas" height="580" width="1000">
    <!-- <canvas id="Canvas" height="600" width="1250">
     </canvas> -->
   </canvas>
@@ -71,16 +71,16 @@
  //var ctx1=canvas.getContext("2d");
  
  var back=new Image();
- back.src="http://donjon.bin.sh/fantasy/dungeon/cache/594b92ea-ca3e470b.png";
+ back.src="images/back1.png";
  //ctx.drawImage(back,0,0,canvas.width,canvas.height);
  var char=new Image();
- char.src="http://www.rpgalchemy.com/wp-content/uploads/2014/10/pathfinder_paladin.jpg";
+ char.src="images/hero.jpg";
  
  var coin=new Image();
- coin.src="https://cdn1.caratlane.com/media/catalog/product/cache/6/small_image/262x262/9df78eab33525d08d6e5fb8d27136e95/G/C/GC00027-2Y0000_1_lar.jpg";
+ coin.src="images/coin.jpg";
  
  var end =new Image();
- end.src="https://s-media-cache-ak0.pinimg.com/736x/cb/23/ff/cb23ff9a0a72ad09eb081a79e31d02db.jpg";
+ end.src="images/door.jpg";
  
 // http://donjon.bin.sh/fantasy/dungeon/cache/594b8f0e-ca3e470b.png
 
@@ -183,7 +183,9 @@ function draw(){
 
  
  if( (playerX-offsetX+15)>=thingsOnMap[1][0] && (playerX-offsetX+15)<=(thingsOnMap[1][0]+26) && (playerY-offsetY+10)>=thingsOnMap[1][1] && (playerY-offsetY+10)<=(thingsOnMap[1][1]+26) )
-  {level++;
+  { audio=new Audio("images/doorclose.mp3");
+    audio.play();
+    level++;
     if(level==2)
     {reset1();
     }
@@ -194,7 +196,7 @@ function draw(){
     { ctx.clearRect(0,0,canvas.width,canvas.height);
       ctx.fillStyle="white";
       ctx.font = "30px Arial";
-      ctx.fillText("You Win",350,100);
+      ctx.fillText("You Win",450,100);
       mins=1;
       seconds=0;
     }
@@ -202,20 +204,63 @@ function draw(){
 
    ctx.restore();
 }
-    
+
+
+  function collisionUp(){
+		
+		var pixel = ctx.getImageData(playerX,playerY,1,-1).data;
+		
+		if(pixel[0]<=4 && pixel[1]<=4 && pixel[2]<=4)
+			return true;
+		return false;
+	}
+	function collisionDown(){
+		
+		var pixel = ctx.getImageData(playerX,playerY+26,1,1).data;
+		
+		if(pixel[0]<=4 && pixel[1]<=4 && pixel[2]<=4)
+			return true;
+		return false;
+	}
+	function collisionLeft(){
+		
+		var pixel = ctx.getImageData(playerX,playerY,-1,1).data;
+		
+    if(pixel[0]<=4 && pixel[1]<=4 && pixel[2]<=4)
+		  return true;
+      
+ 		return false;
+	}
+	function collisionRight(){
+		
+		var pixel = ctx.getImageData(playerX+26,playerY,1,1).data;
+		
+		if(pixel[0]<=4 && pixel[1]<=4 && pixel[2]<=4)
+			return true;
+		return false;
+	}
+  
   function key(){
     canvas.addEventListener('keydown',function(e) {
       if(e.keyCode===37)
-        {offsetX+=3;
+        {
+        	if(!collisionLeft())
+        	offsetX+=3;
         }
       else if(e.keyCode===39)
-        {offsetX-=3;
+        {
+        	if(!collisionRight())
+        	offsetX-=3;
         }
       else if(e.keyCode===38)
-        {offsetY+=3;
+        {
+        	if(!collisionUp())
+        	offsetY+=3;
         }
       else if(e.keyCode===40)
-        {offsetY-=3;
+        {
+        	if(!collisionDown())
+        	offsetY-=3;
         }
   
       draw(); 
@@ -290,7 +335,7 @@ function reload(){
 
 function reset1(){
 
-back.src="http://donjon.bin.sh/fantasy/dungeon/cache/594b9902-ca3e470b.png";
+back.src="images/back2.png";
 
 thingsOnMap=[
  [0,0],
@@ -314,7 +359,7 @@ lev.innerHTML="Level: "+String(level);
 
 
 function reset2(){
-  back.src="http://donjon.bin.sh/fantasy/dungeon/cache/594bba94-ca3e470b.png";
+  back.src="images/back3.png";
   
 thingsOnMap=[
 [0,0],
@@ -336,7 +381,7 @@ var lev=document.getElementById("level");
 lev.innerHTML="Level: "+String(level);
 } 
 
-myAudio = new Audio('http://www.pacdv.com/sounds/interface_sound_effects/sound3.mp3'); 
+myAudio = new Audio('images/backsound.mp3'); 
  myAudio.addEventListener('ended', function() {
    this.currentTime = 0;
    this.play();
